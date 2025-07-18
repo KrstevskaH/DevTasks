@@ -1,33 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+:root {
+  --bg: #0f0c29;
+  --text: white;
+}
+
 body {
-    font-family: sans-serif;
-    margin: 0;
-    padding: 2rem;
-    background-color: var(--bg, #f0f0f0);
-    color: var(--text, #000);
-  }
-  
-  .app {
-    max-width: 400px;
-    margin: auto;
-    background: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  li {
-    padding: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 2rem;
+  background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1c1b2d);
+  background-size: 400% 400%;
+  animation: galaxy 30s ease infinite;
+  color: var(--text);
+  transition: background-color 0.3s, color 0.3s;
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 700px;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.07);
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 12px 60px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.input-group {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.2rem;
+}
+
+button {
+  all: unset;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+#addTask {
+  background: linear-gradient(145deg, #7b2ff7, #f107a3);
+  color: white;
+}
+
+#addTask:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 25px rgba(123, 47, 247, 0.6);
+}
+
+#clearCompleted {
+  background: linear-gradient(145deg, #ff416c, #ff4b2b);
+  color: white;
+}
+
+#clearCompleted:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 25px rgba(255, 65, 108, 0.5);
+}
+
+#toggleMode {
+  background: linear-gradient(145deg, #00c9ff, #92fe9d);
+  color: #111;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+#toggleMode:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 25px rgba(0, 201, 255, 0.4);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+li {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.8rem;
+    border-radius: 12px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s ease, background 0.2s ease;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(6px);
   }
   
-  .completed {
+  li:hover {
+    transform: scale(1.02);
+    background: rgba(255, 255, 255, 0.15);
+  }
+  
+  li span {
+    flex-grow: 1;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #f8f8f8;
+    transition: 0.3s ease;
+  }
+  
+  li.completed span {
     text-decoration: line-through;
-    opacity: 0.6;
+    opacity: 0.5;
+    color: #ccc;
   }
   
+  li button {
+    background: transparent;
+    border: none;
+    color: #ff6b6b;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding-left: 1rem;
+    transition: transform 0.2s ease;
+  }
+  
+  li button:hover {
+    transform: scale(1.2);
+  }
+  
+
+.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .app {
+    padding: 1.5rem;
+  }
+
+  .input-group {
+    flex-direction: column;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  input[type="date"] {
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    width: 100%;
+  }
+  
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* white calendar icon */
+  }
+}
+
+@keyframes galaxy {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}

@@ -1,4 +1,5 @@
 const taskInput = document.getElementById("taskInput");
+const taskDate = document.getElementById("taskDate");
 const addTask = document.getElementById("addTask");
 const taskList = document.getElementById("taskList");
 const taskCount = document.getElementById("taskCount");
@@ -13,7 +14,10 @@ function renderTasks() {
     const li = document.createElement("li");
     li.className = task.done ? "completed" : "";
     li.innerHTML = `
-      <span onclick="toggleTask(${index})">${task.text}</span>
+      <div>
+        <span onclick="toggleTask(${index})">${task.text}</span><br>
+        <small>📅 ${task.date || "No date"}</small>
+      </div>
       <button onclick="deleteTask(${index})">❌</button>
     `;
     taskList.appendChild(li);
@@ -24,9 +28,11 @@ function renderTasks() {
 
 function addNewTask() {
   const text = taskInput.value.trim();
+  const date = taskDate.value;
   if (text) {
-    tasks.push({ text, done: false });
+    tasks.push({ text, date, done: false });
     taskInput.value = "";
+    taskDate.value = "";
     renderTasks();
   }
 }
