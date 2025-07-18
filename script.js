@@ -13,10 +13,12 @@ function renderTasks() {
   tasks.forEach((task, index) => {
     const li = document.createElement("li");
     li.className = task.done ? "completed" : "";
+    // Format date nicely if it exists
+    const formattedDate = task.date ? new Date(task.date).toLocaleString() : "No date";
     li.innerHTML = `
       <div>
         <span onclick="toggleTask(${index})">${task.text}</span><br>
-        <small>📅 ${task.date || "No date"}</small>
+        <small>📅 ${formattedDate}</small>
       </div>
       <button onclick="deleteTask(${index})">❌</button>
     `;
@@ -28,13 +30,18 @@ function renderTasks() {
 
 function addNewTask() {
   const text = taskInput.value.trim();
-  const date = taskDate.value;
-  if (text) {
-    tasks.push({ text, date, done: false });
-    taskInput.value = "";
-    taskDate.value = "";
-    renderTasks();
+  const dateValue = taskDate.value;
+  if (!text) return;
+
+  if (dateValue && new Date(dateValue) < new Date()) {
+    alert("Please select a future date and time.");
+    return;
   }
+
+  tasks.push({ text, date: dateValue, done: false });
+  taskInput.value = "";
+  taskDate.value = "";
+  renderTasks();
 }
 
 function toggleTask(index) {
@@ -53,10 +60,9 @@ clearCompleted.onclick = () => {
 };
 
 toggleMode.onclick = () => {
-  const isDark = document.body.style.getPropertyValue('--bg') === '#111';
-  document.body.style.setProperty('--bg', isDark ? '#f0f0f0' : '#111');
-  document.body.style.setProperty('--text', isDark ? '#000' : '#fff');
-};
+    document.documentElement.classList.toggle("dark");
+  };
+  
 
 addTask.onclick = addNewTask;
 taskInput.addEventListener("keypress", e => {
